@@ -4,6 +4,18 @@
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Trang Chủ", root_path %></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Chữ ký số ECDSA <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "Sinh khóa", ecdsa_generate_key_path %></li>
+            <li class="divider"></li>
+            <li><%= link_to "Sinh chữ ký", "#" %></li>
+            <li class="divider"></li>
+            <li><%= link_to "Xác minh chữ ký", "#" %></li>
+          </ul>
+        </li>
       </ul>
     </nav>
   </div>

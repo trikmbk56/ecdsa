@@ -1,0 +1,72 @@
+<div class="col-md-6 col-md-offset-3">
+  <h2>Chữ ký số ECDSA - Sinh khóa</h2>
+
+  <div class="panel panel-info">
+    <div class="panel-heading">Input</div>
+    <div class="panel-body">
+      <label for="elliptic">Chọn đường cong elliptic</label>
+      <select name="ec-name" class="form-control" id="gk-elliptic">
+        <option value="secp224r1">NIST/SECG curve over a 224 bit prime field</option>
+        <option value="secp384r1">NIST/SECG curve over a 384 bit prime field</option>
+        <option value="secp521r1">NIST/SECG curve over a 521 bit prime field</option>
+        <option value="prime192v3">X9.62 curve over a 192 bit prime field</option>
+        <option value="prime239v3">X9.62 curve over a 239 bit prime field</option>
+        <option value="prime256v1">X9.62 curve over a 256 bit prime field</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="panel panel-info">
+    <div class="panel-heading">Thuật toán sinh khóa</div>
+    <div class="panel-body">
+      <label for="d-input">
+        1. Chọn 1 số ngẫu nhiên hoặc giả ngẫu nhiên d Є [1, n-1]
+      </label>
+      <div class="input-group">
+        <input id="d-input" class="form-control" readonly 
+        placeholder="Giá trị của d"></input>
+        <span class="input-group-btn">
+          <button id="select-d" class="btn btn-default glyphicon glyphicon-plus" 
+          type="button">Chọn</button>
+        </span>
+      </div>
+
+      <label for="q-input">2. Tính Q = dG</label>
+      <div class="input-group">
+        <input id="q-input" class="form-control" readonly 
+        placeholder="Giá trị của Q"></input>
+        <span class="input-group-btn">
+          <button id="compute-q" class="btn btn-default glyphicon glyphicon-plus" 
+          type="button">Tính</button>
+        </span>
+      </div>
+
+      <label>3. Khóa bí mật là d, khóa công khai là Q</label>
+    </div>
+  </div>
+
+  <div class="panel panel-info">
+    <div class="panel-heading">Output</div>
+    <div class="panel-body">
+      <label for="private-key">Khóa bí mật</label>
+      <div class="input-group">
+        <input id="private-key" class="form-control" readonly 
+        placeholder="Giá trị khóa bí mật"></input>
+        <span class="input-group-btn">
+          <button id="save-private-key" class="btn btn-default glyphicon glyphicon-floppy-save" 
+          type="button">Lưu</button>
+        </span>
+      </div>
+
+      <label for="public-key">Khóa công khai</label>
+      <div class="input-group">
+        <input id="public-key" class="form-control" readonly 
+        placeholder="Giá trị khóa công khai"></input>
+        <span class="input-group-btn">
+          <button id="save-public-key" class="btn btn-default glyphicon glyphicon-floppy-save" 
+          type="button">Lưu</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
