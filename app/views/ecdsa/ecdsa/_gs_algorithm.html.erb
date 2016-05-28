@@ -1,0 +1,92 @@
+<div class="panel panel-info">
+  <div class="panel-heading">Thuật toán sinh chữ ký</div>
+  <div class="panel-body">
+    <label for="k-input" class="important">
+      1. Chọn 1 số ngẫu nhiên hoặc giả ngẫu nhiên k Є [1, n-1]
+    </label>
+    <div class="input-group">
+      <input id="k-input" class="form-control" readonly 
+      placeholder="Giá trị của k"></input>
+      <span class="input-group-btn">
+        <button id="select-k" class="btn btn-info glyphicon glyphicon-plus" 
+        type="button">Chọn</button>
+      </span>
+    </div>
+
+    <label for="kg-input" class="important">
+      2. Tính kG = (x<sub>1</sub>, y<sub>1</sub>)
+    </label>
+    <div class="input-group">
+      <input id="kg-input" class="form-control" readonly 
+      placeholder="Giá trị của kG"></input>
+      <span class="input-group-btn">
+        <button id="compute-kg" class="btn btn-info glyphicon glyphicon-plus" 
+        type="button">Tính</button>
+      </span>
+    </div>
+    <label for="x1-input">x<sub>1</sub></label>
+    <input id="x1-input" class="form-control" readonly
+    placeholder="Giá trị của x1"></input>
+    <label for="y1-input">y<sub>1</sub></label>
+    <input id="y1-input" class="form-control" readonly
+    placeholder="Giá trị của y1"></input>
+
+    <label for="r-input" class="important">
+      3. Tính r = x<sub>1</sub> mod n. Nếu r = 0 thì quay lại bước 1
+    </label>
+    <div class="input-group">
+      <input id="r-input" class="form-control" readonly 
+      placeholder="Giá trị của r"></input>
+      <span class="input-group-btn">
+        <button id="compute-r" class="btn btn-info glyphicon glyphicon-plus" 
+        type="button">Tính</button>
+      </span>
+    </div>
+
+    <label for="k-1-input" class="important">
+      4. Tính k<sup>-1</sup> mod n
+    </label>
+    <div class="input-group">
+      <input id="k-1-input" class="form-control" readonly 
+      placeholder="Giá trị của k^-1"></input>
+      <span class="input-group-btn">
+        <button id="compute-k-1" class="btn btn-info glyphicon glyphicon-plus" 
+        type="button">Tính</button>
+      </span>
+    </div>
+
+    <label for="gs-hash-function" class="important">
+      5. Sử dụng hàm băm để tính: e = SHA(m)
+    </label>
+    <select name="gs-hash-function" class="form-control" id="gs-hash-function">
+      <option value="sha1">SHA-1</option>
+      <option value="sha224">SHA-224</option>
+      <option value="sha256">SHA-256</option>
+      <option value="sha384">SHA-384</option>
+      <option value="sha512">SHA-512</option>
+    </select>
+    <label for="e-input">Tính e = SHA(m)</label>
+    <div class="input-group">
+      <input id="e-input" class="form-control" readonly 
+      placeholder="Giá trị của e"></input>
+      <span class="input-group-btn">
+        <button id="compute-e" class="btn btn-info glyphicon glyphicon-plus" 
+        type="button">Tính</button>
+      </span>
+    </div>
+
+    <label for="s-input" class="important">
+      6. Tính s = k<sup>-1</sup>(e + dr) mod n. Nếu s = 0 thì quay lại bước 1
+    </label>
+    <div class="input-group">
+      <input id="s-input" class="form-control" readonly 
+      placeholder="Giá trị của s"></input>
+      <span class="input-group-btn">
+        <button id="compute-s" class="btn btn-info glyphicon glyphicon-plus" 
+        type="button">Tính</button>
+      </span>
+    </div>
+
+    <label class="important">7. Chữ ký của thông điệp m là (r, s)</label>
+  </div>
+</div>
