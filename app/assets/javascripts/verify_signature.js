@@ -1,10 +1,36 @@
 $(document).on('page:change', function(){
   $('#vs-elliptic').ready(function(){
-    console.log("load");
+    $.ajax({
+      url: '/api/get_elliptic_curve_params',
+      type: 'GET',
+      data: {
+        ec_name: $('#vs-elliptic').val()
+      },
+      success: function(json) {
+        $('#vs-p').val(json.p);
+        $('#vs-a').val(json.a);
+        $('#vs-b').val(json.b);
+        $('#vs-g').val(json.g);
+        $('#vs-n').val(json.n);
+      }
+    });
   });
 
   $('#vs-elliptic').change(function(){
-    console.log("change");
+    $.ajax({
+      url: '/api/get_elliptic_curve_params',
+      type: 'GET',
+      data: {
+        ec_name: $('#vs-elliptic').val()
+      },
+      success: function(json) {
+        $('#vs-p').val(json.p);
+        $('#vs-a').val(json.a);
+        $('#vs-b').val(json.b);
+        $('#vs-g').val(json.g);
+        $('#vs-n').val(json.n);
+      }
+    });
   });
 
   $('#vs-btn-message-upload').click(function(){

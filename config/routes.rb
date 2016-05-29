@@ -38,5 +38,7 @@ Rails.application.routes.draw do
     get "vs_compute_x" => "verify_signature#compute_x"
     get "vs_compute_v" => "verify_signature#compute_v"
     get "vs_vsrify_signature" => "verify_signature#verify_signature"
+
+    get "get_elliptic_curve_params" => "elliptic_curve#get_elliptic_curve_params"
   end
 end
