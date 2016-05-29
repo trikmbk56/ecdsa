@@ -1,4 +1,38 @@
 $(document).on('page:change', function(){
+  $('#gk-elliptic').ready(function(){
+    $.ajax({
+      url: '/api/get_elliptic_curve_params',
+      type: 'GET',
+      data: {
+        ec_name: $('#gk-elliptic').val()
+      },
+      success: function(json) {
+        $('#gk-p').val(json.p);
+        $('#gk-a').val(json.a);
+        $('#gk-b').val(json.b);
+        $('#gk-g').val(json.g);
+        $('#gk-n').val(json.n);
+      }
+    });
+  });
+
+  $('#gk-elliptic').change(function(){
+    $.ajax({
+      url: '/api/get_elliptic_curve_params',
+      type: 'GET',
+      data: {
+        ec_name: $('#gk-elliptic').val()
+      },
+      success: function(json) {
+        $('#gk-p').val(json.p);
+        $('#gk-a').val(json.a);
+        $('#gk-b').val(json.b);
+        $('#gk-g').val(json.g);
+        $('#gk-n').val(json.n);
+      }
+    });
+  });
+
   $('#select-d').click(function(){
     $.ajax({
       url: '/api/select_d',
