@@ -1,0 +1,50 @@
+<div class="panel panel-info">
+  <div class="panel-heading">Input</div>
+  <div class="panel-body">
+    <label for="vs-elliptic" class="important">Chọn đường cong elliptic</label>
+    <select name="ec-name" class="form-control" id="vs-elliptic">
+      <option value="secp224r1">NIST/SECG curve over a 224 bit prime field</option>
+      <option value="secp384r1">NIST/SECG curve over a 384 bit prime field</option>
+      <option value="secp521r1">NIST/SECG curve over a 521 bit prime field</option>
+      <option value="prime192v3">X9.62 curve over a 192 bit prime field</option>
+      <option value="prime239v3">X9.62 curve over a 239 bit prime field</option>
+      <option value="prime256v1">X9.62 curve over a 256 bit prime field</option>
+    </select>
+
+    <label for="vs-message" class="important">Thông điệp</label>
+    <div class="input-group">
+      <input type="file" id="vs-message" class="form-control"></input>
+      <span class="input-group-btn">
+        <button id="vs-btn-message-upload"
+        class="btn btn-info glyphicon glyphicon-floppy-open" 
+        type="button">Upload</button>
+      </span>
+    </div>
+
+    <label for="vs-signature" class="important">Chữ ký</label>
+    <div class="input-group">
+      <input type="file" id="vs-signature" class="form-control"></input>
+      <span class="input-group-btn">
+        <button id="vs-btn-signature-upload"
+        class="btn btn-info glyphicon glyphicon-floppy-open" 
+        type="button">Upload</button>
+      </span>
+    </div>
+
+    <label for="vs-public-key" class="important">Khóa công khai</label>
+    <div class="input-group">
+      <input type="file" id="vs-public-key" class="form-control"></input>
+      <span class="input-group-btn">
+        <button id="vs-btn-public-key-upload"
+        class="btn btn-info glyphicon glyphicon-floppy-open" 
+        type="button">Upload</button>
+      </span>
+    </div>
+
+    <center>
+      <button id="vs-check-input" class="btn btn-info btn-submit" type="button">
+        Kiểm tra đường cong và khóa công khai
+      </button>
+    </center>
+  </div>
+</div>
