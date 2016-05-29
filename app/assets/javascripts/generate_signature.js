@@ -28,7 +28,7 @@ $(document).on('page:change', function(){
     if (!file[0])
       alert('Không có file!');
     else if (file[0].type != 'application/x-x509-ca-cert')
-      alert('Không đúng định dạng khóa bí mật!');
+      alert('Không đúng định dạng! (.pem hoặc .der)');
     else {
       var reader = new FileReader();
       reader.readAsText(file[0]);

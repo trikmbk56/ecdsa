@@ -1,0 +1,110 @@
+<div class="panel panel-info">
+  <div class="panel-heading">Thuật toán xác minh chữ ký</div>
+  <div class="panel-body">
+    <label for="boolean1-input" class="important">
+      1. Xác minh xem r, s Є [1, n-1], nếu không thỏa mãn thì từ chối chữ ký
+    </label>
+    <div class="input-group">
+      <input id="boolean1-input" class="form-control" readonly 
+      placeholder="Đúng hay sai?"></input>
+      <span class="input-group-btn">
+        <button id="boolean1-btn" class="btn btn-info glyphicon glyphicon-plus" 
+        type="button">XácMinh</button>
+      </span>
+    </div>
+    <label for="vs-r-input">Giá trị của r</label>
+    <input id="vs-r-input" class="form-control" readonly
+    placeholder="Giá trị của r"></input>
+    <label for="vs-s-input">Giá trị của s</label>
+    <input id="vs-s-input" class="form-control" readonly
+    placeholder="Giá trị của s"></input>
+
+    <label for="vs-hash-function" class="important">
+      2. Sử dụng hàm băm để tính: e = SHA(m)
+    </label>
+    <select name="vs-hash-function" class="form-control" id="vs-hash-function">
+      <option value="sha1">SHA-1</option>
+      <option value="sha224">SHA-224</option>
+      <option value="sha256">SHA-256</option>
+      <option value="sha384">SHA-384</option>
+      <option value="sha512">SHA-512</option>
+    </select>
+    <label for="vs-e-input">Tính e = SHA(m)</label>
+    <div class="input-group">
+      <input id="vs-e-input" class="form-control" readonly 
+      placeholder="Giá trị của e"></input>
+      <span class="input-group-btn">
+        <button id="vs-compute-e" class="btn btn-info glyphicon glyphicon-plus" 
+        type="button">Tính</button>
+      </span>
+    </div>
+
+    <label for="w-input" class="important">
+      3. Tính w = s<sup>-1</sup> mod n
+    </label>
+    <div class="input-group">
+      <input id="w-input" class="form-control" readonly 
+      placeholder="Giá trị của w"></input>
+      <span class="input-group-btn">
+        <button id="compute-w" class="btn btn-info glyphicon glyphicon-plus" 
+        type="button">Tính</button>
+      </span>
+    </div>
+
+    <label class="important">
+      4. Tính u<sub>1</sub> = ew mod n, u<sub>2</sub> = rw mod n
+    </label><br>
+    <label for="u1-input">Giá trị của u<sub>1</sub></label>
+    <div class="input-group">
+      <input id="u1-input" class="form-control" readonly 
+      placeholder="Giá trị của u1"></input>
+      <span class="input-group-btn">
+        <button id="compute-u1" class="btn btn-info glyphicon glyphicon-plus" 
+        type="button">Tính</button>
+      </span>
+    </div>
+    <label for="u2-input">Giá trị của u<sub>2</sub></label>
+    <div class="input-group">
+      <input id="u2-input" class="form-control" readonly 
+      placeholder="Giá trị của u2"></input>
+      <span class="input-group-btn">
+        <button id="compute-u2" class="btn btn-info glyphicon glyphicon-plus" 
+        type="button">Tính</button>
+      </span>
+    </div>
+
+    <label for="x-input" class="important">
+      5. Tính X = u<sub>1</sub>G + u<sub>2</sub>Q = (x<sub>x</sub>, y<sub>x</sub>)
+    </label>
+    <div class="input-group">
+      <input id="x-input" class="form-control" readonly 
+      placeholder="Giá trị của x"></input>
+      <span class="input-group-btn">
+        <button id="compute-x" class="btn btn-info glyphicon glyphicon-plus" 
+        type="button">Tính</button>
+      </span>
+    </div>
+    <label for="xx-input">Giá trị của x<sub>x</sub></label>
+    <input id="xx-input" class="form-control" readonly
+    placeholder="Giá trị của xx"></input>
+    <label for="yx-input">Giá trị của y<sub>x</sub></label>
+    <input id="yx-input" class="form-control" readonly
+    placeholder="Giá trị của yx"></input>
+
+    <label for="v-input" class="important">
+      6. Nếu X = O thì từ chối chữ ký, ngược lại tính v = x<sub>x</sub> mod n
+    </label>
+    <div class="input-group">
+      <input id="v-input" class="form-control" readonly 
+      placeholder="Giá trị của v"></input>
+      <span class="input-group-btn">
+        <button id="compute-v" class="btn btn-info glyphicon glyphicon-plus" 
+        type="button">Tính</button>
+      </span>
+    </div>
+
+    <label class="important">
+      7. Nếu v = r thì chấp nhận chữ ký, ngược lại thì từ chối chữ ký
+    </label>
+  </div>
+</div>

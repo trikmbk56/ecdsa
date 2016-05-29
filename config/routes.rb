@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :ecdsa do
     get "generate_key" => "ecdsa#generate_key"
     get "generate_signature" => "ecdsa#generate_signature"
+    get "verify_signature" => "ecdsa#verify_signature"
   end
 
   namespace :api do
@@ -23,5 +24,19 @@ Rails.application.routes.draw do
     get "gs_hash_message" => "generate_signature#hash_message"
     get "gs_compute_s" => "generate_signature#compute_s"
     get "save_signature" => "generate_signature#save_signature"
+
+    post "vs_upload_message" => "verify_signature#upload_message"
+    post "vs_upload_signature" => "verify_signature#upload_signature"
+    post "vs_upload_public_key" => "verify_signature#upload_public_key"
+    get "vs_check_input" => "verify_signature#check_input"
+
+    get "vs_boolean1" => "verify_signature#boolean1"
+    get "vs_hash_message" => "verify_signature#hash_message"
+    get "vs_compute_w" => "verify_signature#compute_w"
+    get "vs_compute_u1" => "verify_signature#compute_u1"
+    get "vs_compute_u2" => "verify_signature#compute_u2"
+    get "vs_compute_x" => "verify_signature#compute_x"
+    get "vs_compute_v" => "verify_signature#compute_v"
+    get "vs_vsrify_signature" => "verify_signature#verify_signature"
   end
 end

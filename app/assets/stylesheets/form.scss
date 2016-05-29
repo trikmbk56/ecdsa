@@ -1,5 +1,5 @@
 label {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .important {
@@ -7,10 +7,18 @@ label {
 }
 
 .btn-submit {
-  margin-top: 20px;
-  width: 50%;
+  margin-top: 25px;
+  width: 45%;
 }
 
 .panel {
   margin-top: 30px;
+}
+
+#success-mess {
+  display: none;
+}
+
+#danger-mess {
+  display: none;
 }

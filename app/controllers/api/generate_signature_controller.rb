@@ -9,6 +9,7 @@ class Api::GenerateSignatureController < ApplicationController
   @@k_inverse = nil
   @@e = nil
   @@S = nil
+  @@check = false
 
   def upload_message
     @@message = params[:message_base64]
@@ -33,6 +34,7 @@ class Api::GenerateSignatureController < ApplicationController
     elsif (@@d.nil? || @@q.nil?)
       render text: "Chưa upload khóa!"
     elsif (@@group.order > @@d) && (@@group.generator.mul(@@d) == @@q)
+      @@check=true
       render text: "Input hợp lệ."
     else
       render text: "Input không hợp lệ!"
@@ -40,7 +42,7 @@ class Api::GenerateSignatureController < ApplicationController
   end
 
   def select_k
-    if @@group.nil?
+    if !@@check
       render text: "Chưa check input!"
     else
       random_number = rand @@group.order.to_i
