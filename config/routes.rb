@@ -40,5 +40,6 @@ Rails.application.routes.draw do
     get "vs_vsrify_signature" => "verify_signature#verify_signature"
 
     get "get_elliptic_curve_params" => "elliptic_curve#get_elliptic_curve_params"
+    get "download_key" => "download#download_key"
   end
 end

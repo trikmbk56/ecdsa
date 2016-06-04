@@ -2,6 +2,7 @@ class Api::GenerateKeyController < ApplicationController
   @@group = nil
   @@d = nil
   @@q = nil
+  @@random = Random.new_seed.to_s
 
   def select_d
     @@group = OpenSSL::PKey::EC::Group.new params[:ec_name]
@@ -20,16 +21,17 @@ class Api::GenerateKeyController < ApplicationController
       ec = OpenSSL::PKey::EC.new @@group
       ec.private_key = @@d
       ec.public_key = @@q
-      unless Dir.exists? ("#{Dir.home}" + "/ecdsa")
-        Dir.mkdir ("#{Dir.home}" + "/ecdsa")
+      unless Dir.exists? ("ecdsa")
+        Dir.mkdir ("ecdsa")
       end
-      unless Dir.exists? ("#{Dir.home}" + "/ecdsa/key")
-        Dir.mkdir ("#{Dir.home}" + "/ecdsa/key")
+      unless Dir.exists? ("ecdsa/key")
+        Dir.mkdir ("ecdsa/key")
       end
-      File.write("#{Dir.home}" + "/ecdsa/key/private_key.pem", ec.to_pem)
-      render text: "Đã lưu vào thư mục /home/ecdsa/key"
+      filename = "private_key" + @@random + ".pem"
+      File.write("ecdsa/key/" + filename, ec.to_pem)
+      render json: {status: "success", filename: filename}
     else
-      render text: "Cặp khóa không hợp lệ"
+      render json: {status: "fail", text: "Cặp khóa không hợp lệ"}
     end
   end
 
@@ -37,16 +39,17 @@ class Api::GenerateKeyController < ApplicationController
     if @@q == @@group.generator.mul(@@d)
       ec = OpenSSL::PKey::EC.new @@group
       ec.public_key = @@q
-      unless Dir.exists? ("#{Dir.home}" + "/ecdsa")
-        Dir.mkdir ("#{Dir.home}" + "/ecdsa")
+      unless Dir.exists? ("ecdsa")
+        Dir.mkdir ("ecdsa")
       end
-      unless Dir.exists? ("#{Dir.home}" + "/ecdsa/key")
-        Dir.mkdir ("#{Dir.home}" + "/ecdsa/key")
+      unless Dir.exists? ("ecdsa/key")
+        Dir.mkdir ("ecdsa/key")
       end
-      File.write("#{Dir.home}" + "/ecdsa/key/public_key.pem", ec.to_pem)
-      render text: "Đã lưu vào thư mục /home/ecdsa/key"
+      filename = "public_key" + @@random + ".pem"
+      File.write("ecdsa/key/" + filename, ec.to_pem)
+      render json: {status: "success", filename: filename}
     else
-      render text: "Cặp khóa không hợp lệ"
+      render json: {status: "fail", text: "Cặp khóa không hợp lệ"}
     end
   end
 end

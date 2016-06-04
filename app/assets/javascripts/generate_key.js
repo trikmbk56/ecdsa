@@ -66,8 +66,14 @@ $(document).on('page:change', function(){
     $.ajax({
       url: '/api/save_private_key',
       type: 'GET',
-      success: function(text) {
-        alert(text);
+      success: function(json) {
+        if (json.status == "success") {
+          document.location.href = '/api/download_key?filename=' +
+            json.filename;
+        }
+        else {
+          alert(json.text);
+        }
       }
     })
   });
@@ -76,8 +82,14 @@ $(document).on('page:change', function(){
     $.ajax({
       url: '/api/save_public_key',
       type: 'GET',
-      success: function(text) {
-        alert(text);
+      success: function(json) {
+        if (json.status == "success") {
+          document.location.href = '/api/download_key?filename=' +
+            json.filename;
+        }
+        else {
+          alert(json.text);
+        }
       }
     })
   });
