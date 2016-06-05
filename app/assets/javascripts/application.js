@@ -14,4 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
+//= require lobibox
+//= require lobibox/messageboxes
+//= require lobibox/notifications
 //= require_tree .

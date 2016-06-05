@@ -36,9 +36,17 @@ $(document).on('page:change', function(){
   $('#gs-btn-message-upload').click(function(){
     file = $('#gs-message').prop('files');
     if (!file[0])
-      alert('Không có file!');
+      Lobibox.notify('error', {
+        msg: 'Không có file!', 
+        delay: 1500,
+        position: 'top right'
+      });
     else if (file[0].size/1024/1024 > 5)
-      alert('File quá lớn. Hãy upload file nhỏ hơn 5Mb!');
+      Lobibox.notify('error', {
+        msg: 'File quá lớn. Hãy upload file nhỏ hơn 5Mb!', 
+        delay: 1500,
+        position: 'top right'
+      });
     else {
       var reader = new FileReader();
       reader.readAsDataURL(file[0]);
@@ -50,7 +58,11 @@ $(document).on('page:change', function(){
             message_base64: base64.target.result
           },
           success: function(text) {
-            alert(text);
+            Lobibox.notify('success', {
+              msg: text, 
+              delay: 1500,
+              position: 'top right'
+            });
           }
         });
       };
@@ -60,9 +72,17 @@ $(document).on('page:change', function(){
   $('#gs-btn-private-key-upload').click(function(){
     file = $('#gs-private-key').prop('files');
     if (!file[0])
-      alert('Không có file!');
+      Lobibox.notify('error', {
+        msg: 'Không có file!', 
+        delay: 1500,
+        position: 'top right'
+      });
     else if (file[0].type != 'application/x-x509-ca-cert')
-      alert('Không đúng định dạng! (.pem hoặc .der)');
+      Lobibox.notify('error', {
+        msg: 'Không đúng định dạng! (.pem hoặc .der)', 
+        delay: 1500,
+        position: 'top right'
+      });
     else {
       var reader = new FileReader();
       reader.readAsText(file[0]);
@@ -73,8 +93,12 @@ $(document).on('page:change', function(){
           data: {
             key: text.target.result
           },
-          success: function(text) {
-            alert(text);
+          success: function(json) {
+            Lobibox.notify(json.type, {
+              msg: json.text, 
+              delay: 1500,
+              position: 'top right'
+            });
           }
         });
       };
@@ -88,8 +112,12 @@ $(document).on('page:change', function(){
       data: {
         ec_name: $('#gs-elliptic').val()
       },
-      success: function(text) {
-        alert(text);
+      success: function(json) {
+        Lobibox.notify(json.type, {
+          msg: json.text, 
+          delay: 1500,
+          position: 'top right'
+        });
       }
     });
   });
@@ -100,7 +128,11 @@ $(document).on('page:change', function(){
       type: 'GET',
       success: function(text) {
         if (text == 'Chưa check input!')
-          alert(text);
+          Lobibox.notify('warning', {
+            msg: text, 
+            delay: 1500,
+            position: 'top right'
+          });
         else
           $('#k-input').val(text);
       }
@@ -109,7 +141,11 @@ $(document).on('page:change', function(){
 
   $('#compute-kg').click(function(){
     if ($('#k-input').val() == '') {
-      alert("Chưa thực hiện bước trước đó!");
+      Lobibox.notify('warning', {
+        msg: "Chưa thực hiện bước trước đó!", 
+        delay: 1500,
+        position: 'top right'
+      });
     }
     else {
       $.ajax({
@@ -126,7 +162,11 @@ $(document).on('page:change', function(){
 
   $('#compute-r').click(function(){
     if ($('#x1-input').val() == '') {
-      alert("Chưa thực hiện bước trước đó!");
+      Lobibox.notify('warning', {
+        msg: "Chưa thực hiện bước trước đó!", 
+        delay: 1500,
+        position: 'top right'
+      });
     }
     else {
       $.ajax({
@@ -142,7 +182,11 @@ $(document).on('page:change', function(){
 
   $('#compute-k-1').click(function(){
     if ($('#k-input').val() == '') {
-      alert("Chưa thực hiện bước trước đó!");
+      Lobibox.notify('warning', {
+        msg: "Chưa thực hiện bước trước đó!", 
+        delay: 1500,
+        position: 'top right'
+      });
     }
     else {
       $.ajax({
@@ -170,7 +214,11 @@ $(document).on('page:change', function(){
 
   $('#compute-s').click(function(){
     if ($('#k-1-input').val() == "" || $('#e-input').val() == "" || $('#r-input').val() == "")
-      alert("Chưa thực hiện bước trước đó!");
+      Lobibox.notify('warning', {
+        msg: "Chưa thực hiện bước trước đó!", 
+        delay: 1500,
+        position: 'top right'
+      });
     else {
       $.ajax ({
         url: '/api/gs_compute_s',
@@ -185,13 +233,21 @@ $(document).on('page:change', function(){
 
   $('#gs-save-signature').click(function(){
     if ($('#r-input-signature').val() == '' || $('#s-input-signature').val() == '')
-      alert("Chưa thực hiện đủ các bước của thuật toán!");
+      Lobibox.notify('warning', {
+        msg: "Chưa thực hiện đủ các bước của thuật toán!", 
+        delay: 1500,
+        position: 'top right'
+      });
     else {
       $.ajax({
         url: '/api/save_signature',
         type: 'GET',
         success: function(text) {
-          alert(text);
+          Lobibox.notify('success', {
+            msg: text, 
+            delay: 1500,
+            position: 'top right'
+          });
         }
       });
     }
