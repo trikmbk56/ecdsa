@@ -72,7 +72,11 @@ $(document).on('page:change', function(){
             json.filename;
         }
         else {
-          alert(json.text);
+          Lobibox.notify('error', {
+              msg: json.text, 
+              delay: 1500,
+              position: 'top right'
+          });
         }
       }
     })
@@ -88,7 +92,11 @@ $(document).on('page:change', function(){
             json.filename;
         }
         else {
-          alert(json.text);
+          Lobibox.notify('error', {
+              msg: json.text, 
+              delay: 1500,
+              position: 'top right'
+          });
         }
       }
     })

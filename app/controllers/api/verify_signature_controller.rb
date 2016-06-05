@@ -29,9 +29,9 @@ class Api::VerifySignatureController < ApplicationController
     ec = OpenSSL::PKey::EC.new params[:key]
     if ec.public_key?
       @@q = ec.public_key
-      render text: "Upload khóa bí mật thành công."
+      render json: {type: "success", text: "Upload khóa công khai thành công."}
     else
-      render text: "Đây không phải khóa bí mật."
+      render json: {type: "error", text: "Đây không phải khóa công khai."}
     end
   end
 
@@ -40,16 +40,16 @@ class Api::VerifySignatureController < ApplicationController
     str_p = $ec_group[params[:ec_name]][:p]
     @@p = str_p.to_i(16).to_bn
     if @@message.nil?
-      render text: "Chưa upload thông điệp!"
+      render json: {type: "warning", text: "Chưa upload thông điệp!"}
     elsif @@signature.nil?
-      render text: "Chưa upload chữ ký!"
+      render json: {type: "warning", text: "Chưa upload chữ ký!"}
     elsif @@q.nil?
-      render text: "Chưa upload khóa!"
+      render json: {type: "warning", text: "Chưa upload khóa!"}
     elsif @@q.group == @@group
       @@check = true
-      render text: "Input hợp lệ."
+      render json: {type: "success", text: "Input hợp lệ."}
     else
-      render text: "Input không hợp lệ!"
+      render json: {type: "error", text: "Input không hợp lệ!"}
     end
   end
 
@@ -115,11 +115,10 @@ class Api::VerifySignatureController < ApplicationController
     end
     yr = (yr / @@p)[1]
     if yr < 0.to_bn
-      yr = @@p + yr
+      yr = @@p + yr 
     end
     @@xx = xr
     x_bn = ("04" + xr.to_s(16) + yr.to_s(16)).to_i(16).to_bn
-    byebug
     @@x = OpenSSL::PKey::EC::Point.new @@group, x_bn
     render json: {xx: xr.to_s(16), yx: yr.to_s(16)}
   end
@@ -135,29 +134,36 @@ class Api::VerifySignatureController < ApplicationController
 
   def verify_signature
     if @@v == @@r
-      render text: "true"
+      render json: {type: "success", text: "Chữ ký hợp lệ"}
     else
-      render text: "false"
+      render json: {type: "error", text: "Chữ ký không hợp lệ"}
     end
   end
 
   private
   def inverse a, m
+    x = extended_gcd a, m
+    result = (x / m)[1]
+    if result < 0.to_bn
+      result = m + result
+    end
+    result
+  end
+
+  def extended_gcd a, b
     zero = 0.to_bn
-    xa = 1.to_bn
-    xm = zero
-    while m != zero
-      q = (a / m)[0];
-      xr = xa - (q * xm);
-      xa = xm;
-      xm = xr;
-      r = (a / m)[1];
-      a = m;
-      m = r;
+    one = 1.to_bn
+    last_remainder = a > zero ? a : zero - a
+    remainder = b > zero ? b : zero - b
+    x, last_x, y, last_y = zero, one, one, zero
+    while remainder != zero
+      temp = remainder
+      quotient = (last_remainder/remainder)[0]
+      remainder = (last_remainder/remainder)[1]
+      last_remainder = temp
+      x, last_x = last_x - quotient*x, x
+      y, last_y = last_y - quotient*y, y
     end
-    if xa < zero
-      xa = @@group.order + xa
-    end
-    xa
+    last_x * (a < zero ? -1.to_bn : one)
   end
 end

@@ -36,9 +36,17 @@ $(document).on('page:change', function(){
   $('#vs-btn-message-upload').click(function(){
     file = $('#vs-message').prop('files');
     if (!file[0])
-      alert('Không có file!');
+      Lobibox.notify('error', {
+        msg: 'Không có file!', 
+        delay: 1500,
+        position: 'top right'
+      });
     else if (file[0].size/1024/1024 > 5)
-      alert('File quá lớn. Hãy upload file nhỏ hơn 5Mb!');
+      Lobibox.notify('error', {
+        msg: 'File quá lớn. Hãy upload file nhỏ hơn 5Mb!', 
+        delay: 1500,
+        position: 'top right'
+      });
     else {
       var reader = new FileReader();
       reader.readAsDataURL(file[0]);
@@ -50,7 +58,11 @@ $(document).on('page:change', function(){
             message_base64: base64.target.result
           },
           success: function(text) {
-            alert(text);
+            Lobibox.notify('success', {
+              msg: text, 
+              delay: 1500,
+              position: 'top right'
+            });
           }
         });
       };
@@ -61,9 +73,17 @@ $(document).on('page:change', function(){
     file = $('#vs-signature').prop('files');
     console.log(file);
     if (!file[0])
-      alert('Không có file!');
+      Lobibox.notify('error', {
+        msg: 'Không có file!', 
+        delay: 1500,
+        position: 'top right'
+      });
     else if (file[0].type != 'application/x-x509-ca-cert')
-      alert('Không đúng định dạng! (.pem hoặc .der)');
+      Lobibox.notify('error', {
+        msg: 'Không đúng định dạng! (.pem hoặc .der)', 
+        delay: 1500,
+        position: 'top right'
+      });
     else {
       var reader = new FileReader();
       reader.readAsText(file[0]);
@@ -75,7 +95,11 @@ $(document).on('page:change', function(){
             signature: text.target.result
           },
           success: function(text) {
-            alert(text);
+            Lobibox.notify('success', {
+              msg: text, 
+              delay: 1500,
+              position: 'top right'
+            });
           }
         });
       };
@@ -85,9 +109,17 @@ $(document).on('page:change', function(){
   $('#vs-btn-public-key-upload').click(function(){
     file = $('#vs-public-key').prop('files');
     if (!file[0])
-      alert('Không có file!');
+      Lobibox.notify('error', {
+        msg: 'Không có file!', 
+        delay: 1500,
+        position: 'top right'
+      });
     else if (file[0].type != 'application/x-x509-ca-cert')
-      alert('Không đúng định dạng! (.pem hoặc .der)');
+      Lobibox.notify('error', {
+        msg: 'Không đúng định dạng! (.pem hoặc .der)', 
+        delay: 1500,
+        position: 'top right'
+      });
     else {
       var reader = new FileReader();
       reader.readAsText(file[0]);
@@ -98,8 +130,12 @@ $(document).on('page:change', function(){
           data: {
             key: text.target.result
           },
-          success: function(text) {
-            alert(text);
+          success: function(json) {
+            Lobibox.notify(json.type, {
+              msg: json.text, 
+              delay: 1500,
+              position: 'top right'
+            });
           }
         });
       };
@@ -113,8 +149,12 @@ $(document).on('page:change', function(){
       data: {
         ec_name: $('#vs-elliptic').val()
       },
-      success: function(text) {
-        alert(text);
+      success: function(json) {
+        Lobibox.notify(json.type, {
+          msg: json.text, 
+          delay: 1500,
+          position: 'top right'
+        });
       }
     });
   });
@@ -125,7 +165,11 @@ $(document).on('page:change', function(){
       type: 'GET',
       success: function(json) {
         if (json.error)
-          alert(json.error);
+          Lobibox.notify('error', {
+            msg: json.error, 
+            delay: 1500,
+            position: 'top right'
+          });
         else {
           $('#boolean1-input').val(json.result);
           $('#vs-r-input').val(json.r);
@@ -150,7 +194,11 @@ $(document).on('page:change', function(){
 
   $('#compute-w').click(function(){
     if ($('vs-s-input') == "") {
-      alert("Chưa thực hiện bước trước đó!");
+      Lobibox.notify('warning', {
+        msg: "Chưa thực hiện bước trước đó!", 
+        delay: 1500,
+        position: 'top right'
+      });
     }
     else {
       $.ajax({
@@ -165,7 +213,11 @@ $(document).on('page:change', function(){
 
   $('#compute-u1').click(function(){
     if ($('w-input') == "") {
-      alert("Chưa thực hiện bước trước đó!");
+      Lobibox.notify('warning', {
+        msg: "Chưa thực hiện bước trước đó!", 
+        delay: 1500,
+        position: 'top right'
+      });
     }
     else {
       $.ajax({
@@ -180,7 +232,11 @@ $(document).on('page:change', function(){
 
   $('#compute-u2').click(function(){
     if ($('w-input') == "") {
-      alert("Chưa thực hiện bước trước đó!");
+      Lobibox.notify('warning', {
+        msg: "Chưa thực hiện bước trước đó!", 
+        delay: 1500,
+        position: 'top right'
+      });
     }
     else {
       $.ajax({
@@ -195,7 +251,11 @@ $(document).on('page:change', function(){
 
   $('#compute-x').click(function(){
     if ($('u1-input') == '' || $('#u2-input') == '') {
-      alert("Chưa thực hiện bước trước đó!");
+      Lobibox.notify('warning', {
+        msg: "Chưa thực hiện bước trước đó!", 
+        delay: 1500,
+        position: 'top right'
+      });
     }
     else {
       $.ajax({
@@ -212,7 +272,11 @@ $(document).on('page:change', function(){
 
   $('#compute-v').click(function(){
     if ($('#xx-input').val() == '') {
-      alert("Chưa thực hiện bước trước đó!");
+      Lobibox.notify('warning', {
+        msg: "Chưa thực hiện bước trước đó!", 
+        delay: 1500,
+        position: 'top right'
+      });
     }
     else {
       $.ajax({
@@ -228,21 +292,22 @@ $(document).on('page:change', function(){
 
   $('#vs-verify-signature').click(function(){
     if ($('#vs-r-output').val() == "" || $('#vs-v-output').val() == "") {
-      alert("Chưa thực hiện bước trước đó!");
+      Lobibox.notify('warning', {
+        msg: "Chưa thực hiện bước trước đó!", 
+        delay: 1500,
+        position: 'top right'
+      });
     }
     else {
       $.ajax({
         url: '/api/vs_vsrify_signature',
         type: 'GET',
-        success: function(text){
-          if (text == 'true') {
-            $('#success-mess').show();
-            $('#danger-mess').hide();
-          }
-          else {
-            $('#success-mess').hide();
-            $('#danger-mess').show();
-          }
+        success: function(json){
+          Lobibox.notify(json.type, {
+            msg: json.text, 
+            delay: 1500,
+            position: 'top right'
+          });
         }
       });
     }

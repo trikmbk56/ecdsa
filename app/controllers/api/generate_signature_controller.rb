@@ -21,23 +21,23 @@ class Api::GenerateSignatureController < ApplicationController
     if ec.private_key?
       @@d = ec.private_key
       @@q = ec.public_key
-      render text: "Upload khóa bí mật thành công."
+      render json: {type: "success", text: "Upload khóa bí mật thành công."}
     else
-      render text: "Đây không phải khóa bí mật."
+      render json: {type: "error", text: "Đây không phải khóa bí mật."}
     end
   end
 
   def check_input
     @@group = OpenSSL::PKey::EC::Group.new params[:ec_name]
     if @@message.nil?
-      render text: "Chưa upload thông điệp!"
+      render json: {type: "warning", text: "Chưa upload thông điệp!"}
     elsif (@@d.nil? || @@q.nil?)
-      render text: "Chưa upload khóa!"
+      render json: {type: "warning", text: "Chưa upload khóa!"}
     elsif (@@group.order > @@d) && (@@group.generator.mul(@@d) == @@q)
       @@check=true
-      render text: "Input hợp lệ."
+      render json: {type: "success", text: "Input hợp lệ."}
     else
-      render text: "Input không hợp lệ!"
+      render json: {type: "error", text: "Input không hợp lệ!"}
     end
   end
 
