@@ -2,7 +2,7 @@ class Api::GenerateKeyController < ApplicationController
   @@group = nil
   @@d = nil
   @@q = nil
-  @@random = Random.new_seed.to_s
+  @@random = Time.now.to_i.to_s
 
   def select_d
     @@group = OpenSSL::PKey::EC::Group.new params[:ec_name]

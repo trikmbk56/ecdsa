@@ -49,7 +49,7 @@ $(document).on('page:change', function(){
       });
     else {
       var reader = new FileReader();
-      reader.readAsDataURL(file[0]);
+      reader.readAsBinaryString(file[0]);
       reader.onload = function(base64) {
         $.ajax({
           url: '/api/vs_upload_message',
