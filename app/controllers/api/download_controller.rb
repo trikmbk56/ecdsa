@@ -4,4 +4,10 @@ class Api::DownloadController < ApplicationController
     send_file file_path, type: "application/x-x509-ca-cert",
       filename: params[:filename], x_sendfile: true
   end
+
+  def download_signature
+    file_path = "ecdsa/signature/" + params[:filename]
+    send_file file_path, type: "application/x-x509-ca-cert",
+      filename: params[:filename], x_sendfile: true
+  end
 end

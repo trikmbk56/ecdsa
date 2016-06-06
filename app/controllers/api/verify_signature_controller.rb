@@ -22,7 +22,7 @@ class Api::VerifySignatureController < ApplicationController
   end
 
   def upload_signature
-    @@signature = params[:signature].to_i(16).to_bn
+    @@signature = [params[:signature]].pack("H*")
     render text: "Upload chữ ký thành công."
   end
 
@@ -58,9 +58,9 @@ class Api::VerifySignatureController < ApplicationController
     if !@@check
       render json: {error: "Chưa check input!"}
     else
-      temp = @@signature / @@group.order
-      @@r = temp[0]
-      @@s = temp[1]
+      asn1 = OpenSSL::ASN1.decode @@signature
+      @@r = asn1.value[0].value[0].value
+      @@s = asn1.value[1].value[0].value
       if (@@r >= @@group.order) || (@@s >= @@group.order)
         result = "Sai, không chấp nhận chữ ký."
       else

@@ -41,5 +41,6 @@ Rails.application.routes.draw do
 
     get "get_elliptic_curve_params" => "elliptic_curve#get_elliptic_curve_params"
     get "download_key" => "download#download_key"
+    get "download_signature" => "download#download_signature"
   end
 end

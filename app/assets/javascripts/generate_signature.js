@@ -49,7 +49,7 @@ $(document).on('page:change', function(){
       });
     else {
       var reader = new FileReader();
-      reader.readAsDataURL(file[0]);
+      reader.readAsBinaryString(file[0]);
       reader.onload = function(base64) {
         $.ajax({
           url: '/api/gs_upload_message',
@@ -242,12 +242,9 @@ $(document).on('page:change', function(){
       $.ajax({
         url: '/api/save_signature',
         type: 'GET',
-        success: function(text) {
-          Lobibox.notify('success', {
-            msg: text, 
-            delay: 1500,
-            position: 'top right'
-          });
+        success: function(json) {
+          document.location.href = '/api/download_signature?filename=' +
+            json.filename;
         }
       });
     }

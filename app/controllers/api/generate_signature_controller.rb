@@ -10,6 +10,7 @@ class Api::GenerateSignatureController < ApplicationController
   @@e = nil
   @@S = nil
   @@check = false
+  @@random = Time.now.to_i.to_s
 
   def upload_message
     @@message = params[:message_base64]
@@ -100,15 +101,18 @@ class Api::GenerateSignatureController < ApplicationController
   end
 
   def save_signature
-    signature = @@r * @@group.order + @@s
-    unless Dir.exists? ("#{Dir.home}" + "/ecdsa")
-      Dir.mkdir ("#{Dir.home}" + "/ecdsa")
+    int_r = OpenSSL::ASN1::Integer.new(@@r, 0, :EXPLICIT)
+    int_s = OpenSSL::ASN1::Integer.new(@@s, 0, :EXPLICIT)
+    seq = OpenSSL::ASN1::Sequence.new([int_r, int_s])
+    signature = seq.to_der
+    unless Dir.exists? ("ecdsa")
+      Dir.mkdir ("ecdsa")
     end
-    unless Dir.exists? ("#{Dir.home}" + "/ecdsa/signature")
-      Dir.mkdir ("#{Dir.home}" + "/ecdsa/signature")
+    unless Dir.exists? ("ecdsa/signature")
+      Dir.mkdir ("ecdsa/signature")
     end
-    file_name = "#{Dir.home}" + "/ecdsa/signature/" + "signature" + Time.now.to_i.to_s + ".der"
-    File.write(file_name, signature.to_s(16))
-    render text: ("Đã lưu vào thư mục " + file_name)
+    filename = "signature" + @@random + ".der"
+    File.write("ecdsa/signature/" + filename, signature.unpack("H*").first)
+    render json: {status: "success", filename: filename}
   end
 end
